@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Arabic Text Converter</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap">
+	<style>
+		body {
+			background-color: #F7F7F7;
+			font-family: 'Open Sans', sans-serif;
+		}
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 2rem;
+			background-color: #FFFFFF;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+			text-align: center;
+		}
+		h1 {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 2rem;
+			color: #444444;
+		}
+		p {
+			font-size: 1rem;
+			font-weight: 400;
+			margin-bottom: 1rem;
+			color: #777777;
+		}
+		textarea {
+			width: 100%;
+			padding: 1rem;
+			font-size: 1.1rem;
+			font-weight: 400;
+			border: 2px solid #EEEEEE;
+			border-radius: 5px;
+			resize: none;
+			margin-bottom: 1rem;
+			color: #555555;
+		}
+		button {
+			padding: 1rem 2rem;
+			font-size: 1rem;
+			font-weight: 700;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-right: 0.5rem;
+			color: #FFFFFF;
+		}
+		#convert {
+			background-color: #4A4A4A;
+		}
+		#reset {
+			background-color: #999999;
+		}
+		#copy {
+			background-color: #00AEEF;
+		}
+		button:hover {
+			opacity: 0.8;
+		}
+		.result {
+			margin-top: 2rem;
+			padding: 1rem;
+			background-color: #EEEEEE;
+			border-radius: 5px;
+			color: #555555;
+			overflow: auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Arabic Text Converter</h1>
+		<p>Enter your Arabic text below:</p>
+		<textarea id="arabicText" rows="10" cols="50"></textarea>
+		<button id="convert" onclick="convert()">Convert</button>
+		<button id="reset" onclick="reset()">Reset</button>
+		<button id="copy" onclick="copy()">Copy</button>
+		<div class="result">
+			<p>Converted text:</p>
+			<textarea id="convertedText" rows="10" cols="50" readonly></textarea>
+		</div>
+	</div>
+
+	<script>
+		function convert() {
+			var arabicText = document.getElementById("arabicText").value;
+			var convertedText = arabicText.replace(/[\u0600-\u06FF]/g, function(match) {
+				return String.fromCharCode(match.charCodeAt(0) + 0x0650);
+			});
+			document.getElementById("convertedText").value = convertedText;
+		}
+
+		function reset() {
+			document.getElementById("arabicText").value
