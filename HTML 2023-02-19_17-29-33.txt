@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Arabic Text Converter</title>
+</head>
+<body>
+	<h1>Arabic Text Converter</h1>
+	<p>Enter your Arabic text below:</p>
+	<textarea id="arabicText" rows="10" cols="50"></textarea>
+	<button onclick="convert()">Convert</button>
+	<button onclick="reset()">Reset</button>
+	<button onclick="copy()">Copy</button>
+	<p>Converted text:</p>
+	<textarea id="convertedText" rows="10" cols="50"></textarea>
+
+	<script>
+		function convert() {
+			var arabicText = document.getElementById("arabicText").value;
+			var convertedText = arabicText.replace(/[\u0600-\u06FF]/g, function(match) {
+				return String.fromCharCode(match.charCodeAt(0) + 0x0650);
+			});
+			document.getElementById("convertedText").value = convertedText;
+		}
+
+		function reset() {
+			document.getElementById("arabicText").value = "";
+			document.getElementById("convertedText").value = "";
+		}
+
+		function copy() {
+			var copyText = document.getElementById("convertedText");
+			copyText.select();
+			document.execCommand("copy");
+			alert("Copied the text: " + copyText.value);
+		}
+	</script>
+</body>
+</html>
